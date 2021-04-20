@@ -1,7 +1,9 @@
 package com.instancia2.udemy.microservicios.cursos.models.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cursos")
@@ -18,9 +20,18 @@ public class Curso {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
+    //Relacion con Alumnos
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private List<Alumno> alumnos;
+
     @PrePersist
     public void prePersistDate(){
         this.createAt = new Date();
+    }
+
+    // Contructor
+    public Curso() {
+        this.alumnos = new ArrayList<>();
     }
 
     // Getters and Setters
@@ -48,4 +59,21 @@ public class Curso {
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
+
+    public List<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(List<Alumno> alumnos) {
+        this.alumnos = alumnos;
+    }
+
+    public void addAlumno(Alumno alumno) {
+        this.alumnos.add(alumno);
+    }
+
+    public void removeAlumno(Alumno alumno) {
+        this.alumnos.remove(alumno);
+    }
+
 }
