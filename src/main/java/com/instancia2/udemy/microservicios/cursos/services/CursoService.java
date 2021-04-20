@@ -1,6 +1,8 @@
 package com.instancia2.udemy.microservicios.cursos.services;
 
 import com.instancia2.udemy.microservicios.cursos.models.entity.Curso;
+
+import java.util.List;
 import java.util.Optional;
 
 public interface CursoService {
@@ -12,4 +14,6 @@ public interface CursoService {
     public Curso save(Curso alumno);
 
     public void deleteById(Long id);
+
+    public List<Curso> findCursosByAlumnoId(Long id);
 }

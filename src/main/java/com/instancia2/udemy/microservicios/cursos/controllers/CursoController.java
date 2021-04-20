@@ -21,7 +21,7 @@ public class CursoController {
     @GetMapping
     public ResponseEntity<?> listar(){
 
-        return ResponseEntity.ok().body(cursoService.findAll());
+        return ResponseEntity.ok().body(this.cursoService.findAll());
     }
 
     // Buscamos un curso por su id
@@ -52,7 +52,7 @@ public class CursoController {
         Curso cursoDb = c.get();
         cursoDb.setNombre(curso.getNombre());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(cursoService.save(cursoDb));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.cursoService.save(cursoDb));
     }
 
     // Eliminamos un curso de la BD
@@ -98,6 +98,15 @@ public class CursoController {
             cursoDb.removeAlumno(alumno);
         });
         return ResponseEntity.status(HttpStatus.CREATED).body(this.cursoService.save(cursoDb));
+    }
+
+    @GetMapping("/buscar-alumno/{id}")
+    public ResponseEntity<?> buscarAlumno(@PathVariable Long id){
+        List<Curso> curso = this.cursoService.findCursosByAlumnoId(id);
+        if(curso == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(curso);
     }
 
 }

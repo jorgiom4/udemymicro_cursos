@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,24 +18,30 @@ public class CursoServiceImpl implements CursoService{
     @Override
     @Transactional(readOnly = true)
     public Iterable<Curso> findAll() {
-        return cursoRepository.findAll();
+        return this.cursoRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Curso> findById(Long id) {
-        return cursoRepository.findById(id);
+        return this.cursoRepository.findById(id);
     }
 
     @Override
     @Transactional
     public Curso save(Curso curso) {
-        return cursoRepository.save(curso);
+        return this.cursoRepository.save(curso);
     }
 
     @Override
     @Transactional
     public void deleteById(Long id) {
-        cursoRepository.deleteById(id);
+        this.cursoRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Curso> findCursosByAlumnoId(Long id) {
+        return this.cursoRepository.findCursosByAlumnoId(id) ;
     }
 }
